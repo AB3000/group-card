@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 
 // IMPORT MODELS
-require('./models/Product');
+require('./models/Card');
 
 const app = express();
 
@@ -26,9 +26,9 @@ mongoose.connect(
 app.use(bodyParser.json());
 
 //IMPORT ROUTES
-require('./routes/productRoutes')(app);
+require('./routes/cardRoutes')(app);
 
-if (process.env.NODE_ENV === 'production') {
+if (process.env.NODE_ENV === 'cardion') {
   app.use(express.static('client/build'));
 
   const path = require('path');

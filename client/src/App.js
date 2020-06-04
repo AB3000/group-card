@@ -3,28 +3,28 @@
 import React, { useState, useEffect } from "react";
 
 // SERVICES
-import productService from './services/productService';
+import cardService from './services/cardService';
 
 function App() {
-  const [products, setproducts] = useState(null);
+  const [cards, setcards] = useState(null);
 
   useEffect(() => {
-    if(!products) {
-      getProducts();
+    if(!cards) {
+      getCards();
     }
   })
 
-  const getProducts = async () => {
-    let res = await productService.getAll();
+  const getCards = async () => {
+    let res = await cardService.getAll();
     console.log(res);
-    setproducts(res);
+    setcards(res);
   }
 
-  const renderProduct = product => {
+  const renderCard = card => {
     return (
-      <li key={product._id} className="list__item product">
-        <h3 className="product__name">{product.name}</h3>
-        <p className="product__description">{product.description}</p>
+      <li key={card._id} className="list__item card">
+        <h3 className="card__name">{card.name}</h3>
+        <p className="card__description">{card.description}</p>
       </li>
     );
   };
@@ -32,10 +32,10 @@ function App() {
   return (
     <div className="App">
       <ul className="list">
-        {(products && products.length > 0) ? (
-          products.map(product => renderProduct(product))
+        {(cards && cards.length > 0) ? (
+          cards.map(card => renderCard(card))
         ) : (
-          <p>No products found</p>
+          <p>No cards found</p>
         )}
       </ul>
     </div>
