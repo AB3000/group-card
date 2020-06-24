@@ -8,11 +8,11 @@ require('./models/Card');
 const app = express();
 
 mongoose.Promise = global.Promise;
-//aSK2gJ8ICMGOI8pL
+//AleWnwNIz7PMR8rN
 
 mongoose.Promise = global.Promise;
 mongoose.connect(
-    "mongodb+srv://test:aSK2gJ8ICMGOI8pL@cluster0-hetxl.mongodb.net/test?retryWrites=true&w=majority",
+    "mongodb+srv://test:AleWnwNIz7PMR8rN@cluster0-vvmb2.mongodb.net/card-data?retryWrites=true&w=majority",
     { useNewUrlParser: true, useUnifiedTopology: true },
     function(error) {
       if (error) {
