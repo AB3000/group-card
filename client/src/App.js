@@ -1,5 +1,4 @@
 // /client/src/App.js
-
 import React, { useState, useEffect } from "react";
 
 // SERVICES
@@ -13,6 +12,11 @@ function App() {
       getCards();
     }
   })
+
+  const generateLink = link => { //for generating a unique link
+      
+      return 0; 
+  }
 
   const getCards = async () => {
     let res = await cardService.getAll();
@@ -32,11 +36,13 @@ function App() {
   return (
     <div className="App">
       <ul className="list">
-        {(cards && cards.length > 0) ? (
+        <button>Create a new card</button>
+        <button>Go to existing card</button>
+        {/* {(cards && cards.length > 0) ? (
           cards.map(card => renderCard(card))
         ) : (
           <p>No cards found</p>
-        )}
+        )} */}
       </ul>
     </div>
   );
