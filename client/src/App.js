@@ -1,30 +1,53 @@
 // /client/src/App.js
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Component } from "react";
+import request from "superagent";
 
 // SERVICES
-import cardService from './services/cardService';
+import cardService from "./services/cardService";
 
-function App() {
-  const [cards, setcards] = useState(null);
+class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      name: "",
+    };
+    this.handleNameInput = this.handleNameInput.bind(this);
+  }
+  handleNameInput(e) {
+    this.setState({
+      name: e.target.value,
+    });
+  }
+  handleSubmitName() {
+    console.log("starting to submit profile");
+    if (this.state.isFormFilledProfile) {
+      console.log("Profile Form appears filled");
+      const data = {
+        name: this.state.name,
+        description: ""
+      };
 
-  useEffect(() => {
-    if(!cards) {
-      getCards();
+      request
+        .post("/api/card")
+        .send(data)
+        .set("Accept", "application/json")
+        .end((err, res) => {
+          if (err || !res.ok) {
+            console.log("Oh no! err");
+          } else {
+            console.log("Success");
+          }
+        });
     }
-  })
-
-  const generateLink = link => { //for generating a unique link
-      
-      return 0; 
   }
 
-  const getCards = async () => {
-    let res = await cardService.getAll();
-    console.log(res);
-    setcards(res);
-  }
+  // getCards = async () => {
+  //   let res = await cardService.getAll();
+  //   console.log(res);
+  //   setcards(res);
+  // };
 
-  const renderCard = card => {
+  renderCard = (card) => {
     return (
       <li key={card._id} className="list__item card">
         <h3 className="card__name">{card.name}</h3>
@@ -33,19 +56,21 @@ function App() {
     );
   };
 
-  return (
-    <div className="App">
-      <ul className="list">
-        <button>Create a new card</button>
-        <button>Go to existing card</button>
-        {/* {(cards && cards.length > 0) ? (
-          cards.map(card => renderCard(card))
-        ) : (
-          <p>No cards found</p>
-        )} */}
-      </ul>
-    </div>
-  );
+  render() {
+    return (
+      <div className="App">
+        <form onSubmit={this.handleSubmitName}>
+          <input
+            onChange={this.handleNameInput}
+            value={this.state.name}
+          />
+          <button type="Submit" value="Submit">
+            Submit
+          </button>
+        </form>
+      </div>
+    );
+  }
 }
 
 export default App;
