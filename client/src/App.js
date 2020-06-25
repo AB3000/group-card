@@ -10,14 +10,16 @@ class App extends Component {
     super(props);
     this.state = {
       name: "",
+      description: "", 
     };
-    this.handleNameInput = this.handleNameInput.bind(this);
+    this.handleNewCard = this.handleNewCard.bind(this);
   }
-  handleNameInput(e) {
+  handleNewCard() {
     this.setState({
-      name: e.target.value,
+      name: "",
     });
   }
+
   handleSubmitName() {
     console.log("starting to submit profile");
     if (this.state.isFormFilledProfile) {
@@ -60,14 +62,15 @@ class App extends Component {
     return (
       <div className="App">
         <form onSubmit={this.handleSubmitName}>
-          <input
-            onChange={this.handleNameInput}
+          <input type="hidden"
+            onChange={this.handleNewCard}
             value={this.state.name}
           />
-          <button type="Submit" value="Submit">
-            Submit
+          <button type="Submit" value="test">
+            Create a New Card
           </button>
         </form>
+        <button>Go to Existing Card</button>
       </div>
     );
   }
